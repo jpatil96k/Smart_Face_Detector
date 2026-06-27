@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Face Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="app">
+    <header class="header glass">
+      <div class="brand">
+        <div class="brand__icon" aria-hidden="true">👁️</div>
+        <div>
+          <div class="brand__title">SMART FACE DETECTOR</div>
+          <div class="brand__subtitle">Real-time webcam analytics powered by OpenCV</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card glass camera-card">
+        <div class="card__header">
+          <h2>Live Camera</h2>
+          <div class="status">
+            <span class="dot" id="camDot" aria-hidden="true"></span>
+            <span id="camStatusText">Camera: --</span>
+          </div>
+        </div>
+
+        <div class="video-wrap">
+          <img id="video" class="video" src="{{ url_for('video') }}" alt="Live stream" />
+          <div id="overlay" class="overlay hidden" role="status" aria-live="polite">
+            <div class="overlay__title" id="overlayTitle">Camera Offline</div>
+            <div class="overlay__body" id="overlayBody">Please reconnect webcam.</div>
+            <button id="retryBtn" class="btn btn--primary" type="button">Retry</button>
+          </div>
+        </div>
+
+        <div class="meta-row">
+          <div class="meta">
+            <div class="meta__label">Resolution</div>
+            <div class="meta__value" id="resolution">--</div>
+          </div>
+          <div class="meta">
+            <div class="meta__label">Session</div>
+            <div class="meta__value" id="session">00:00</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__label">Faces</div>
+            <div class="stat__value" id="faces">--</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">FPS</div>
+            <div class="stat__value" id="fps">--</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Detection</div>
+            <div class="stat__value" id="detection">--</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn--primary" id="captureBtn" type="button" title="Capture Image (Space)">
+            Capture Image
+          </button>
+          <a class="btn btn--ghost" id="downloadLatest" href="#" download>Download Latest</a>
+        </div>
+
+        <div class="hint">Tip: Press <kbd>Space</kbd> to capture.</div>
+      </section>
+
+      <section class="card glass">
+        <div class="card__header">
+          <h2>Capture Gallery</h2>
+          <button class="btn btn--ghost" id="refreshGallery" type="button">Refresh</button>
+        </div>
+
+        <div id="gallery" class="gallery" aria-live="polite">
+          <div class="empty">No captures yet.</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="card__header card__header--small">
+          <h3>Detection History</h3>
+          <button class="btn btn--ghost" id="refreshHistory" type="button">Refresh</button>
+        </div>
+
+        <div id="history" class="history" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Smart Face Detector • Flask + OpenCV • Haar Cascade</span>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>
+
